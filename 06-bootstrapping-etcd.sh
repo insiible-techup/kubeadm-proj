@@ -38,14 +38,14 @@ sudo mkdir -p /etc/etcd /var/lib/etcd
 sudo chmod 700 /var/lib/etcd
 sudo cp ca.pem kubeadm-proj-key.pem kubeadm-proj.pem /etc/etcd/
 
-# The instance internal IP address will be used to serve client requests and communicate with etcd cluster peers. Retrieve the internal IP address for the current compute instance:
+# The instance PRIVATE IP address will be used to serve client requests and communicate with etcd cluster peers. Retrieve the PRIVATE IP address for the current compute instance:
 
- INTERNAL_IP=$(aws ec2 describe-instances --filters \
+ PRIVATE_IP=$(aws ec2 describe-instances --filters \
     "Name=tag:Name,Values=${instance}" \
     "Name=instance-state-name,Values=running" \
     --output text --query 'Reservations[].Instances[].PrivateIpAddress')
-# INTERNAL_IP=$(ip addr show ens5 | grep "inet " | awk '{print $2}' | cut -d / -f 1)
-echo $INTERNAL_IP
+# PRIVATE_IP=$(ip addr show ens5 | grep "inet " | awk '{print $2}' | cut -d / -f 1)
+echo $PRIVATE_IP
 
 # Each etcd member must have a unique name within an etcd cluster. Set the etcd name to match the hostname of the current compute instance:
 
@@ -72,10 +72,10 @@ ExecStart=/usr/local/bin/etcd \\
   --peer-trusted-ca-file=/etc/etcd/ca.pem \\
   --peer-client-cert-auth \\
   --client-cert-auth \\
-  --initial-advertise-peer-urls https://${INTERNAL_IP}:2380 \\
-  --listen-peer-urls https://${INTERNAL_IP}:2380 \\
-  --listen-client-urls https://${INTERNAL_IP}:2379,https://127.0.0.1:2379 \\
-  --advertise-client-urls https://${INTERNAL_IP}:2379 \\
+  --initial-advertise-peer-urls https://${PRIVATE_IP}:2380 \\
+  --listen-peer-urls https://${PRIVATE_IP}:2380 \\
+  --listen-client-urls https://${PRIVATE_IP}:2379,https://127.0.0.1:2379 \\
+  --advertise-client-urls https://${PRIVATE_IP}:2379 \\
   --initial-cluster-token etcd-cluster-0 \\
   --initial-cluster controller-0=https://10.0.1.10:2380,controller-1=https://10.0.1.11:2380,controller-2=https://10.0.1.12:2380 \\
   --initial-cluster-state new \\

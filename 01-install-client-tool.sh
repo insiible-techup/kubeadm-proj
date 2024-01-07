@@ -7,7 +7,7 @@
 
 # Download and install cfssl and cfssljson:
 
-go install github.com/cloudflare/cfssl/cmd/cfssl@lates
+go install github.com/cloudflare/cfssl/cmd/cfssl@latest
 
 # Verfication
 

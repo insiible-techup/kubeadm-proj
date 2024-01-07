@@ -4,7 +4,7 @@ provider "aws" {
 
 resource "aws_key_pair" "kubeadm-proj" {
     key_name = "kubeadm-proj"
-    public_key = ""
+    public_key = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDjRO4YQmzvra2fvN4r/AKBTYSfNO3WaHJDT0UZxXmv6xemhLu92wGk4mghyBji58shxmKcyEjL2WWvqpG3XTmE7ju2ZwBUdRNFNCqQ1ku1XRblFm4fMv0kex8dHRKzs5CpCcacLRINmdLMNybe+OaLVPuhsAWjLzHK4qktg47jyiyXoxwxQGQqqBjTW0ifIp8ik+VPpRRqxT7rJF9euYUnNcaEv2525aQ6OHjGTdCTHwQf3GVaXcB0Vd89KZEGaXvCFfA+X/OP7JF8Wz7cZoKVHsxHNuF0VDv1+7cA7RN7c+pLwqCiI6l21KaCRbRxpJrBSwfeBqAR7/2tGS29RgnR7SV2engGcT6BWX+Aiz192Hakt59l/tu724euzAC2vNy8gN7FLa7Tx1UE6QzIA9wFs68n6mSuI5bo6X1WbOkFBOpqrM/GZCbYRGqPHE4jkI8hXbIUBtVvPJSDa69+07UOESLExtCY1oCqXk4JuKcBsIIYKoeUShifDCg0hiWThDc= devopslab@MBP-2"
   
 }
 

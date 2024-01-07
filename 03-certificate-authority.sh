@@ -90,7 +90,7 @@ cfssl gencert \
 # Generate a certificate and private key for each kubeadm-proj worker node:
 
 for i in 0 1 2; do
-  instance="worker-${i}"
+  instance="worker${i}"
   instance_hostname="ip-10-0-1-2.${i}" 
   cat > ${instance}-csr.json <<EOF
 {
@@ -361,10 +361,7 @@ done
 # Copy the appropriate certificates and private keys to each controller instance:
 
 for instance in controller-0 controller-1 controller-2; do
-  external_ip=$(aws ec2 describe-instances --filters \
-    "Name=tag:Name,Values=${instance}" \
-    "Name=instance-state-name,Values=running" \
-    --output text --query 'Reservations[].Instances[].PublicIpAddress')
+  external_ip=$(multipass info worker1 | head -3 | tail -1 | awk '{print $2}')
 
   scp -i kubeadm-proj.id_rsa \
     ca.pem ca-key.pem kubeadm-proj-key.pem kubeadm-proj.pem \
